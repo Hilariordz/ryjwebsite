@@ -1,0 +1,101 @@
+<header class="fixed top-0 left-0 right-0 z-50 w-full bg-white text-zinc-900 shadow-sm font-sans">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between">
+    <div class="flex items-center">
+      <a href="#" class="flex items-center">
+        <img 
+          src="../images/r&j.webp" 
+          alt="R&J Manufacturing de México" 
+          class="h-12 sm:h-16 md:h-20 w-auto object-contain" 
+          loading="lazy" 
+        />
+      </a>
+    </div>
+
+    <div class="flex items-center gap-3 sm:gap-4">
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-bold tracking-wider uppercase text-zinc-700">
+        <a href="#home" class="text-red-600 hover:text-red-700 transition-colors">HOME</a>
+        <a href="#services" class="hover:text-red-600 transition-colors">SERVICES</a>
+        <a href="#capabilities" class="hover:text-red-600 transition-colors">CAPABILITIES</a>
+        <a href="#about-us" class="hover:text-red-600 transition-colors">ABOUT US</a>
+        <a href="#reviews" class="hover:text-red-600 transition-colors">REVIEWS</a>
+      </nav>
+
+      <a
+        href="#get-a-quote"
+        class="hidden sm:inline-block bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase px-4 sm:px-5 py-2 sm:py-2.5 rounded-md transition-colors tracking-wider shadow-sm"
+      >
+        GET A QUOTE
+      </a>
+
+      <button 
+        id="nav-toggle" 
+        type="button"
+        aria-controls="mobile-nav" 
+        aria-expanded="false" 
+        aria-label="Toggle navigation"
+        class="lg:hidden p-2 rounded-md text-zinc-800 hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-red-500"
+      >
+        <svg id="nav-open-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <svg id="nav-close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="hidden lg:hidden border-t border-zinc-100 bg-white shadow-xl max-h-[calc(100vh-5rem)] overflow-y-auto">
+    <div class="px-6 py-5 flex flex-col gap-4 text-sm font-semibold text-zinc-700">
+      <a href="#home" class="text-red-600 font-bold uppercase py-1">HOME</a>
+      <a href="#services" class="hover:text-red-600 transition-colors py-1">SERVICES</a>
+      <a href="#capabilities" class="hover:text-red-600 transition-colors py-1">CAPABILITIES</a>
+      <a href="#about-us" class="hover:text-red-600 transition-colors py-1">ABOUT US</a>
+      <a href="#reviews" class="hover:text-red-600 transition-colors py-1">REVIEWS</a>
+      <a href="#get-a-quote" class="sm:hidden mt-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase px-5 py-2.5 rounded-md inline-block text-center tracking-wider">
+        GET A QUOTE
+      </a>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  function setupNav() {
+    const btn = document.getElementById('nav-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    const openIcon = document.getElementById('nav-open-icon');
+    const closeIcon = document.getElementById('nav-close-icon');
+
+    if (!btn || !mobileNav) return;
+
+    function toggleMenu() {
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!isExpanded));
+      mobileNav.classList.toggle('hidden');
+      openIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+    }
+
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    };
+
+    mobileNav.querySelectorAll('a').forEach((link) => {
+      link.onclick = () => {
+        if (!mobileNav.classList.contains('hidden')) {
+          toggleMenu();
+        }
+      };
+    });
+
+    document.onclick = (e) => {
+      if (!mobileNav.classList.contains('hidden') && !mobileNav.contains(e.target) && !btn.contains(e.target)) {
+        toggleMenu();
+      }
+    };
+  }
+
+  setupNav();
+  document.addEventListener('astro:page-load', setupNav);
+</script>

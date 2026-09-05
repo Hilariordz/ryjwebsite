@@ -1,15 +1,27 @@
+---
+import "../styles/global.css";
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/webp" href="/images/r&j.webp" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>R &amp; J Manufacturing</title>
 	</head>
 	<body>
 		<slot />
+		<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+		<script is:inline>
+			document.addEventListener('DOMContentLoaded', () => {
+				if (window.lucide) {
+					window.lucide.createIcons();
+				}
+			});
+		</script>
 	</body>
 </html>
 

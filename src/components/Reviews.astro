@@ -1,0 +1,55 @@
+---
+const reviews = [
+  {
+    rating: 5,
+    quote: ""
+  },
+  {
+    rating: 5,
+    quote: ""
+  },
+  {
+    rating: 5,
+    quote: ""
+  }
+];
+---
+
+<section id="reviews" class="relative py-36 min-h-[80vh] flex items-center text-white overflow-hidden">
+  
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="/images/bg.webp" 
+      alt="Industrial background" 
+      class="w-full h-full object-cover object-center"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    
+    <div class="text-center max-w-3xl mx-auto mb-20">
+      <span class="text-red-600 font-bold tracking-widest text-sm uppercase block mb-3">
+        WHAT OUR CLIENTS SAY
+      </span>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight uppercase leading-tight">
+        TRUSTED BY COMPANIES THAT DEMAND QUALITY
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {reviews.map((review) => (
+        <div class="bg-zinc-900/90 border border-zinc-800/80 rounded-xl p-10 flex flex-col justify-between shadow-2xl backdrop-blur-sm min-h-[220px]">
+          
+          <div class="flex items-center h-full">
+            <p class="text-zinc-200 text-base sm:text-lg leading-relaxed">
+              "{review.quote}"
+            </p>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

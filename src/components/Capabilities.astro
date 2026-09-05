@@ -1,0 +1,73 @@
+---
+const capabilities = [
+  {
+    value: '0.001”',
+    label: "Tight Tolerances",
+    icon: "crosshair"
+  },
+  {
+    value: "50+",
+    label: "Advanced Machines",
+    icon: "settings-2"
+  },
+  {
+    value: "100+",
+    label: "Materials Available",
+    icon: "package-open"
+  },
+  {
+    value: "1 – 10,000+",
+    label: "Pieces Production Range",
+    icon: "layers-3"
+  }
+];
+---
+
+<section id="capabilities" class="py-16 bg-zinc-50 border-y border-zinc-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    
+    <!-- Encabezado -->
+    <span class="text-red-600 font-bold tracking-widest text-xs uppercase block mb-2">
+      OUR CAPABILITIES
+    </span>
+    <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-zinc-900 tracking-tight uppercase mb-12">
+      BUILT FOR PRECISION. BACKED BY TECHNOLOGY.
+    </h2>
+
+    <!-- Grid de métricas -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      {capabilities.map((item) => (
+        <div class="flex items-center justify-center gap-4 p-4">
+          <!-- Icono -->
+          <div class="text-zinc-400 flex-shrink-0 flex items-center justify-center">
+            <i data-lucide={item.icon} class="w-10 h-10 stroke-zinc-400 stroke-[1.5]" aria-hidden="true"></i>
+          </div>
+
+          <!-- Valor y Etiqueta -->
+          <div class="text-left">
+            <div class="text-2xl sm:text-3xl font-black text-red-600 tracking-tight">
+              {item.value}
+            </div>
+            <div class="text-xs font-bold text-zinc-700 uppercase tracking-wider mt-0.5">
+              {item.label}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Botón -->
+    <div>
+      <a 
+        href="#capabilities-details" 
+        class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase px-6 py-3 rounded-md transition-colors tracking-wider shadow-sm"
+      >
+        <span>VIEW ALL CAPABILITIES</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</section>

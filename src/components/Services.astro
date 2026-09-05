@@ -1,0 +1,92 @@
+---
+const services = [
+  {
+    title: "CNC MACHINING",
+    description: "High-precision CNC turning and milling for complex geometries and tight tolerances.",
+    image: "/images/cnc.JPG",
+  },
+  {
+    title: "LASER CUTTING",
+    description: "Precision laser cutting for metals with clean edges and fast turnaround.",
+    image: "/images/laser-cutting.webp",
+  },
+  {
+    title: "LASER WELDING",
+    description: "Strong, precise and aesthetic welds for a wide range of metal applications.",
+    image: "/images/laser-welding.webp",
+  },
+  {
+    title: "CUSTOM FABRICATION",
+    description: "Custom metal parts and assemblies tailored to your specifications and industry requirements.",
+    image: "/images/custom-fabrication.JPG",
+  },
+  {
+    title: "PROTOTYPES",
+    description: "From concept to prototype. We help you validate and perfect your parts.",
+    image: "/images/prototypes.webp",
+  },
+  {
+    title: "HIGH VOLUME PRODUCTION",
+    description: "Scalable production capacity to support your growing business.",
+    image: "/images/high-volume-production.webp",
+  },
+  {
+    title: "QUALITY INSPECTION",
+    description: "Rigorous quality control processes to ensure every part meets specifications.",
+    image: "/images/quality-inspection.webp",
+  },
+  {
+    title: "FINISHING OPTIONS",
+    description: "Multiple finishing options to enhance performance and appearance.",
+    image: "/images/finishing-options.webp",
+  }
+];
+---
+
+<section id="services" class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-red-600 font-bold tracking-widest text-xs uppercase block mb-2">
+        OUR SERVICES
+      </span>
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-zinc-900 tracking-tight uppercase leading-tight mb-4">
+        COMPLETE MANUFACTURING SOLUTIONS<br class="hidden sm:inline" /> FOR YOUR BUSINESS
+      </h2>
+      <p class="text-zinc-600 text-sm sm:text-base leading-relaxed">
+        From prototype to high-volume production, we deliver precision parts that meet the highest industry standards.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {services.map((service) => (
+        <div class="bg-white border border-zinc-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col">
+          <div class="h-48 w-full overflow-hidden bg-zinc-100 border-b border-zinc-100">
+            <img 
+              src={service.image} 
+              alt={service.title} 
+              class="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="p-5 flex flex-col flex-grow">
+            <div class="flex items-center gap-2.5 mb-3">
+              <div class="bg-red-600 text-white p-1.5 rounded-full flex-shrink-0">
+                <i data-lucide={service.icon} class="w-4 h-4 stroke-[2.4]" aria-hidden="true"></i>
+              </div>
+              <h3 class="font-extrabold text-zinc-900 text-sm tracking-wide uppercase">
+                {service.title}
+              </h3>
+            </div>
+
+            <p class="text-zinc-600 text-xs sm:text-sm leading-relaxed">
+              {service.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
