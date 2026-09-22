@@ -37,19 +37,84 @@ const reviews = [
       </h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {reviews.map((review) => (
-        <div class="bg-zinc-900/90 border border-zinc-800/80 rounded-xl p-10 flex flex-col justify-between shadow-2xl backdrop-blur-sm min-h-[220px]">
-          
-          <div class="flex items-center h-full">
-            <p class="text-zinc-200 text-base sm:text-lg leading-relaxed">
-              "{review.quote}"
-            </p>
+    <div class="relative">
+      <div id="reviews-track" class="flex gap-8 overflow-hidden md:grid md:grid-cols-3">
+        {reviews.map((review, index) => (
+          <div
+            data-review-slide
+            class:list={[
+              'min-w-full bg-zinc-900/90 border border-zinc-800/80 rounded-xl p-10 flex flex-col justify-between shadow-2xl backdrop-blur-sm min-h-55 md:min-w-0',
+              { 'hidden md:flex': index > 0 }
+            ]}
+          >
+            <div class="flex items-center h-full">
+              <p class="text-zinc-200 text-base sm:text-lg leading-relaxed">
+                "{review.quote}"
+              </p>
+            </div>
           </div>
+        ))}
+      </div>
 
-        </div>
-      ))}
+      <div class="mt-6 flex justify-center gap-3 md:hidden">
+        <button
+          id="reviews-prev"
+          type="button"
+          aria-label="Previous review"
+          class="w-10 h-10 rounded-full border border-white/50 text-white flex items-center justify-center hover:bg-white hover:text-zinc-950 transition-colors disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-white"
+        >
+          <span aria-hidden="true" class="text-xl leading-none">&#8592;</span>
+        </button>
+        <button
+          id="reviews-next"
+          type="button"
+          aria-label="Next review"
+          class="w-10 h-10 rounded-full border border-white/50 text-white flex items-center justify-center hover:bg-white hover:text-zinc-950 transition-colors disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-white"
+        >
+          <span aria-hidden="true" class="text-xl leading-none">&#8594;</span>
+        </button>
+      </div>
     </div>
 
   </div>
 </section>
+
+<script is:inline>
+  function setupReviewsCarousel() {
+    const slides = [...document.querySelectorAll('[data-review-slide]')];
+    const previousButton = document.getElementById('reviews-prev');
+    const nextButton = document.getElementById('reviews-next');
+
+    if (!slides.length || !previousButton || !nextButton) return;
+
+    let currentSlide = 0;
+
+    function updateCarousel() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('hidden', index !== currentSlide);
+        slide.classList.toggle('md:flex', true);
+      });
+      previousButton.disabled = currentSlide === 0;
+      nextButton.disabled = currentSlide === slides.length - 1;
+    }
+
+    previousButton.onclick = () => {
+      if (currentSlide > 0) {
+        currentSlide -= 1;
+        updateCarousel();
+      }
+    };
+
+    nextButton.onclick = () => {
+      if (currentSlide < slides.length - 1) {
+        currentSlide += 1;
+        updateCarousel();
+      }
+    };
+
+    updateCarousel();
+  }
+
+  setupReviewsCarousel();
+  document.addEventListener('astro:page-load', setupReviewsCarousel);
+</script>

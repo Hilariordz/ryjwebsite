@@ -13,11 +13,11 @@
 
     <div class="flex items-center gap-3 sm:gap-4">
       <nav class="hidden lg:flex items-center gap-6 text-sm font-bold tracking-wider uppercase text-zinc-700">
-        <a href="#home" class="text-red-600 hover:text-red-700 transition-colors">HOME</a>
-        <a href="#services" class="hover:text-red-600 transition-colors">SERVICES</a>
-        <a href="#capabilities" class="hover:text-red-600 transition-colors">CAPABILITIES</a>
-        <a href="#about-us" class="hover:text-red-600 transition-colors">ABOUT US</a>
-        <a href="#reviews" class="hover:text-red-600 transition-colors">REVIEWS</a>
+        <a href="#home" data-nav-target="home" class="hover:text-red-600 transition-colors">HOME</a>
+        <a href="#services" data-nav-target="services" class="hover:text-red-600 transition-colors">SERVICES</a>
+        <a href="#capabilities" data-nav-target="capabilities" class="hover:text-red-600 transition-colors">CAPABILITIES</a>
+        <a href="#about-us" data-nav-target="about-us" class="hover:text-red-600 transition-colors">ABOUT US</a>
+        <a href="#reviews" data-nav-target="reviews" class="hover:text-red-600 transition-colors">REVIEWS</a>
       </nav>
 
       <a
@@ -47,11 +47,11 @@
 
   <div id="mobile-nav" class="hidden lg:hidden border-t border-zinc-100 bg-white shadow-xl max-h-[calc(100vh-5rem)] overflow-y-auto">
     <div class="px-6 py-5 flex flex-col gap-4 text-sm font-semibold text-zinc-700">
-      <a href="#home" class="text-red-600 font-bold uppercase py-1">HOME</a>
-      <a href="#services" class="hover:text-red-600 transition-colors py-1">SERVICES</a>
-      <a href="#capabilities" class="hover:text-red-600 transition-colors py-1">CAPABILITIES</a>
-      <a href="#about-us" class="hover:text-red-600 transition-colors py-1">ABOUT US</a>
-      <a href="#reviews" class="hover:text-red-600 transition-colors py-1">REVIEWS</a>
+      <a href="#home" data-nav-target="home" class="hover:text-red-600 transition-colors py-1">HOME</a>
+      <a href="#services" data-nav-target="services" class="hover:text-red-600 transition-colors py-1">SERVICES</a>
+      <a href="#capabilities" data-nav-target="capabilities" class="hover:text-red-600 transition-colors py-1">CAPABILITIES</a>
+      <a href="#about-us" data-nav-target="about-us" class="hover:text-red-600 transition-colors py-1">ABOUT US</a>
+      <a href="#reviews" data-nav-target="reviews" class="hover:text-red-600 transition-colors py-1">REVIEWS</a>
       <a href="#get-a-quote" class="sm:hidden mt-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase px-5 py-2.5 rounded-md inline-block text-center tracking-wider">
         GET A QUOTE
       </a>
@@ -81,13 +81,44 @@
       toggleMenu();
     };
 
-    mobileNav.querySelectorAll('a').forEach((link) => {
-      link.onclick = () => {
+    document.querySelectorAll('[data-nav-target]').forEach((link) => {
+      link.onclick = (event) => {
+        const target = document.getElementById(link.dataset.navTarget);
+        if (!target) return;
+
+        event.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        history.replaceState(null, '', `#${target.id}`);
+
         if (!mobileNav.classList.contains('hidden')) {
           toggleMenu();
         }
       };
     });
+
+    const navLinks = document.querySelectorAll('[data-nav-target]');
+    const sections = [...navLinks]
+      .map((link) => document.getElementById(link.dataset.navTarget))
+      .filter(Boolean);
+
+    function updateActiveLink() {
+      const headerHeight = document.querySelector('header')?.offsetHeight ?? 0;
+      const currentSection = sections.reduce((activeSection, section) => {
+        if (section.getBoundingClientRect().top <= headerHeight + 24) {
+          return section;
+        }
+        return activeSection;
+      }, sections[0]);
+
+      navLinks.forEach((link) => {
+        const isActive = link.dataset.navTarget === currentSection?.id;
+        link.classList.toggle('text-red-600', isActive);
+        link.classList.toggle('font-bold', isActive);
+      });
+    }
+
+    updateActiveLink();
+    window.addEventListener('scroll', updateActiveLink, { passive: true });
 
     document.onclick = (e) => {
       if (!mobileNav.classList.contains('hidden') && !mobileNav.contains(e.target) && !btn.contains(e.target)) {
